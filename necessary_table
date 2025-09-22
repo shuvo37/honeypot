@@ -1,0 +1,35 @@
+-- Create the database
+CREATE DATABASE honeypot_db;
+
+-- Use the database
+USE honeypot_db;
+
+-- Table to store all attack attempts
+CREATE TABLE attacks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    timestamp DATETIME NOT NULL,
+    ip_address VARCHAR(45) NOT NULL,
+    username VARCHAR(255),
+    password VARCHAR(255),
+    protocol VARCHAR(50) DEFAULT 'SSH',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table to store banned IP addresses
+CREATE TABLE banned_ips (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ip_address VARCHAR(45) UNIQUE NOT NULL,
+    reason TEXT,
+    banned_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table to store system events (optional but useful)
+CREATE TABLE system_events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    event_type VARCHAR(100) NOT NULL,
+    description TEXT,
+    event_data TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
